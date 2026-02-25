@@ -38,9 +38,3 @@ npm run dev
 
 - Backend: Render (`render.yaml`, service root `recipex-api`)
 - Frontend: Vercel (project root `recipex-web`)
-
-## Security Notes
-
-- Never commit real `.env` files.
-- Keep only `.env.example` / `.env.local.example` in Git.
-- Store privileged keys (Supabase service key, Cloudinary secret, API keys) only in backend environment settings.
