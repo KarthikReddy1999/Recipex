@@ -2,12 +2,11 @@
 
 import Link from 'next/link';
 import { FormEvent, useEffect, useMemo, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { createBrowserSupabaseClient } from '@/lib/supabase';
 
 export default function AuthPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -15,12 +14,17 @@ export default function AuthPage() {
   const [mode, setMode] = useState<'sign-in' | 'sign-up'>('sign-in');
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [accountLabel, setAccountLabel] = useState<string | null>(null);
+  const [redirectTarget, setRedirectTarget] = useState('/my-recipes');
 
-  const redirectTarget = useMemo(() => {
-    const value = searchParams.get('redirect');
-    if (!value) return '/my-recipes';
-    return value.startsWith('/') ? value : '/my-recipes';
-  }, [searchParams]);
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const value = new URLSearchParams(window.location.search).get('redirect');
+    if (!value) {
+      setRedirectTarget('/my-recipes');
+      return;
+    }
+    setRedirectTarget(value.startsWith('/') ? value : '/my-recipes');
+  }, []);
 
   useEffect(() => {
     const supabase = createBrowserSupabaseClient();

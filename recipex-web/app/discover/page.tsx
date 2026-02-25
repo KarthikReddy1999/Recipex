@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { FilterBar } from '@/components/ui/FilterBar';
 import { SearchBar } from '@/components/ui/SearchBar';
 import { GlassCard } from '@/components/ui/GlassCard';
@@ -21,7 +21,6 @@ interface SearchResult {
 
 export default function DiscoverPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   const [query, setQuery] = useState('');
   const [filters, setFilters] = useState<SearchFilters>({});
@@ -69,13 +68,14 @@ export default function DiscoverPage() {
     [buildDiscoverParams]
   );
 
-  const searchParamsKey = searchParams.toString();
-
   useEffect(() => {
-    const urlQuery = searchParams.get('q') || '';
-    const diet = searchParams.get('diet') || undefined;
-    const maxTimeRaw = searchParams.get('maxTime');
-    const difficultyRaw = searchParams.get('difficulty');
+    if (typeof window === 'undefined') return;
+
+    const params = new URLSearchParams(window.location.search);
+    const urlQuery = params.get('q') || '';
+    const diet = params.get('diet') || undefined;
+    const maxTimeRaw = params.get('maxTime');
+    const difficultyRaw = params.get('difficulty');
 
     const nextFilters: SearchFilters = {
       diet,
@@ -94,7 +94,7 @@ export default function DiscoverPage() {
     } else {
       setResults([]);
     }
-  }, [runSearch, searchParams, searchParamsKey]);
+  }, [runSearch]);
 
   const discoverReturnHref = useMemo(() => {
     const params = buildDiscoverParams(query, filters).toString();
