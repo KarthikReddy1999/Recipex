@@ -32,24 +32,43 @@ const FALLBACK_CUISINES = [
   'Thai'
 ];
 
-const allowedOrigins = (process.env.ALLOWED_ORIGINS || '')
+const allowedOriginRules = (process.env.ALLOWED_ORIGINS || '')
   .split(',')
   .map((origin) => origin.trim())
   .filter(Boolean);
 
-app.use(
-  cors({
-    origin(origin, callback) {
-      if (!origin || !allowedOrigins.length || allowedOrigins.includes(origin)) {
-        callback(null, true);
-        return;
-      }
-      callback(new Error('CORS origin blocked'));
-    },
-    credentials: true
-  })
-);
-app.use(express.json({ limit: '15mb' }));
+function normalizeOrigin(value: string): string {
+  try {
+    return new URL(value).origin;
+  } catch {
+    return value.replace(/\/+$/, '');
+  }
+}
+
+function escapeRegex(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function matchOriginRule(origin: string, rule: string): boolean {
+  if (rule === '*') return true;
+
+  const normalizedOrigin = normalizeOrigin(origin);
+  const normalizedRule = normalizeOrigin(rule);
+
+  if (!normalizedRule.includes('*')) {
+    return normalizedOrigin === normalizedRule;
+  }
+
+  const regex = new RegExp(`^${normalizedRule.split('*').map(escapeRegex).join('.*')}$`);
+  return regex.test(normalizedOrigin);
+}
+
+function isOriginAllowed(origin?: string): boolean {
+  if (!origin) return true;
+  if (!allowedOriginRules.length) return true;
+  return allowedOriginRules.some((rule) => matchOriginRule(origin, rule));
+}
+
 app.use((req, res, next) => {
   const requestId = String(req.headers['x-request-id'] || randomUUID());
   const startedAt = Date.now();
@@ -75,6 +94,24 @@ app.use((req, res, next) => {
 
   next();
 });
+
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (isOriginAllowed(origin || undefined)) {
+        callback(null, true);
+        return;
+      }
+      logWarn('cors.origin_blocked', {
+        origin,
+        allowedOrigins: allowedOriginRules
+      });
+      callback(new Error('CORS origin blocked'));
+    },
+    credentials: true
+  })
+);
+app.use(express.json({ limit: '15mb' }));
 
 function requestId(res: Response): string {
   return String(res.locals.requestId || 'n/a');
