@@ -1,0 +1,44 @@
+import Link from 'next/link';
+import { BrandWordmark } from '@/components/ui/BrandWordmark';
+import { GlassCard } from '@/components/ui/GlassCard';
+
+export default function HomePage() {
+  return (
+    <div className="space-y-10">
+      <section className="grid gap-6 py-10 md:grid-cols-2 md:items-center">
+        <div>
+          <p className="mb-3 text-sm uppercase tracking-[0.2em] text-slate-700">AI Pantry to Plate</p>
+          <h1 className="mb-4 leading-tight">
+            <BrandWordmark size="lg" />
+          </h1>
+          <p className="mb-8 max-w-xl text-lg text-[color:var(--text-secondary)]">
+            Scan ingredients, get high-match recipes, and auto-build shopping lists with one premium
+            web workflow.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/scan" className="rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white">
+              Start scanning
+            </Link>
+            <Link href="/discover" className="glass-button px-5 py-3 text-sm font-semibold">
+              Discover recipes
+            </Link>
+          </div>
+        </div>
+
+        <GlassCard className="relative overflow-hidden p-8">
+          <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-teal-200/45 blur-3xl" />
+          <div className="absolute -bottom-8 -left-8 h-36 w-36 rounded-full bg-orange-200/45 blur-3xl" />
+          <div className="relative space-y-4">
+            <h2 className="text-3xl">Why it beats RecipeLens</h2>
+            <ul className="space-y-2 text-sm text-slate-700">
+              <li>Ingredient detection + recipe generation in one smart AI pass</li>
+              <li>Match scores, missing items, and one-tap shopping list</li>
+              <li>Cuisine, diet, time, difficulty all visible upfront</li>
+              <li>Fast recipe discovery and save-to-account flow</li>
+            </ul>
+          </div>
+        </GlassCard>
+      </section>
+    </div>
+  );
+}

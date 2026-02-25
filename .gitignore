@@ -1,0 +1,23 @@
+.DS_Store
+
+# Root-level env files
+.env
+.env.local
+
+# Keep examples
+!.env.example
+!.env.local.example
+
+# Dependency/build caches (covered in subprojects too, but safe at root)
+**/node_modules
+**/.next
+**/dist
+**/out
+**/*.tsbuildinfo
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
