@@ -1,7 +1,7 @@
 # Recipex (Web + API)
 
 Recipex is an AI-powered recipe assistant with a separate web frontend and backend API.
-
+![alt text](./recipex-web/public/image.png)
 ## Architecture
 
 - `recipex-web` -> Next.js 14 frontend (deployed on Vercel)
