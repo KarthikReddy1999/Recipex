@@ -113,11 +113,13 @@ export default function DiscoverPage() {
   const handleSearch = (value: string) => {
     setQuery(value);
     pushDiscoverUrl(value, filters);
+    void runSearch(value, filters);
   };
 
   const handleFiltersChange = (nextFilters: SearchFilters) => {
     setFilters(nextFilters);
     pushDiscoverUrl(query, nextFilters);
+    void runSearch(query, nextFilters);
   };
 
   return (
