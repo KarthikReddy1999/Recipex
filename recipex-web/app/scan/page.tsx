@@ -381,7 +381,15 @@ export default function ScanPage() {
           }}
           disabled={loading}
         />
-        <div className="rounded-xl border border-dashed border-white/60 bg-white/25 p-6">
+        <div className="relative overflow-hidden rounded-xl border border-dashed border-white/60 bg-white/25 p-6">
+          {!scanImageUrl ? (
+            <img
+              src="/asset2.png"
+              alt="Ingredient ring"
+              className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-35"
+            />
+          ) : null}
+          <div className="relative">
           <p className="mb-4 text-center text-sm">
             {loading ? 'Recipex Chef AI is plating your best matches...' : 'Scan with camera or upload ingredient image'}
           </p>
@@ -404,6 +412,7 @@ export default function ScanPage() {
             >
               {startingCamera ? 'Opening camera...' : 'Scan with camera'}
             </button>
+          </div>
           </div>
         </div>
 

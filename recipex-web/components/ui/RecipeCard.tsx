@@ -43,9 +43,7 @@ export function RecipeCard({ recipe, index, detailHref }: RecipeCardProps) {
       {recipe.photo_url ? (
         <img src={recipe.photo_url} alt={recipe.name} className="h-44 w-full object-cover" />
       ) : (
-        <div className="flex h-44 w-full items-center justify-center bg-white/20 text-sm font-semibold text-slate-700/90">
-          Image unavailable
-        </div>
+        <img src="/asset4.png" alt={recipe.name} className="h-44 w-full object-cover" />
       )}
 
       <div className="space-y-3 p-5">

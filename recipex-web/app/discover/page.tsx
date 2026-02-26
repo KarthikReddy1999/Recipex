@@ -124,6 +124,10 @@ export default function DiscoverPage() {
     <div className="space-y-6">
       <h1 className="text-3xl font-bold">Discover</h1>
 
+      <GlassCard className="overflow-hidden p-0">
+        <img src="/asset4.png" alt="Fresh ingredients for recipe discovery" className="h-36 w-full object-cover" />
+      </GlassCard>
+
       <SearchBar query={query} onQueryChange={setQuery} onSearch={handleSearch} />
       <FilterBar filters={filters} onChange={handleFiltersChange} />
 

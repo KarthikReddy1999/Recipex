@@ -123,10 +123,13 @@ export default function MyRecipesPage() {
       ) : null}
 
       {!error && recipes.length === 0 ? (
-        <GlassCard className="p-6">
+        <GlassCard className="overflow-hidden p-0">
+          <img src="/asset1.png" alt="Start saving your favorite recipes" className="h-52 w-full object-cover" />
+          <div className="p-6">
           <p className="text-[color:var(--text-secondary)]">
             No saved recipes yet. Start from Discover or Scan and save your favorites.
           </p>
+          </div>
         </GlassCard>
       ) : null}
 

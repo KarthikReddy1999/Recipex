@@ -251,7 +251,10 @@ export default function AuthPage() {
   }
 
   return (
-    <div className="mx-auto max-w-md">
+    <div className="mx-auto max-w-md space-y-4">
+      <div className="glass-card overflow-hidden p-0">
+        <img src="/asset1.png" alt="Recipex account access" className="h-44 w-full object-cover" />
+      </div>
       <h1 className="mb-4 text-3xl font-bold">{title}</h1>
       <form onSubmit={handleSignIn} className="glass-card space-y-3 p-5">
         <input

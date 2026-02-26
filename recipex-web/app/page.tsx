@@ -25,16 +25,23 @@ export default function HomePage() {
           </div>
         </div>
 
-        <GlassCard className="relative overflow-hidden p-8">
+        <GlassCard className="relative overflow-hidden p-0">
           <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-teal-200/45 blur-3xl" />
           <div className="absolute -bottom-8 -left-8 h-36 w-36 rounded-full bg-orange-200/45 blur-3xl" />
-          <div className="relative space-y-4">
-            <h2 className="text-3xl">Why it beats RecipeLens</h2>
+          <div className="relative">
+            <img
+              src="/asset3.png"
+              alt="AI powered recipe intelligence"
+              className="h-64 w-full object-cover md:h-72"
+            />
+          </div>
+          <div className="relative space-y-4 p-8">
+            <h2 className="text-3xl">Why Recipex Works</h2>
             <ul className="space-y-2 text-sm text-slate-700">
-              <li>Ingredient detection + recipe generation in one smart AI pass</li>
-              <li>Match scores, missing items, and one-tap shopping list</li>
-              <li>Cuisine, diet, time, difficulty all visible upfront</li>
-              <li>Fast recipe discovery and save-to-account flow</li>
+              <li>Scan ingredients and instantly get recipes ranked by match score</li>
+              <li>See missing ingredients, cooking time, and difficulty before you start</li>
+              <li>Build shopping lists in one tap from what your pantry is missing</li>
+              <li>Save favorites to your account and cook with a clean guided flow</li>
             </ul>
           </div>
         </GlassCard>
